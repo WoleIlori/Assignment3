@@ -10,6 +10,7 @@ public class Main extends PApplet
 		ball = new Ball(this, height);
 		g = 1;
 		launch = 15;
+		speed = 4.0f;
 	}
 	
 	//create instance of ball
@@ -17,6 +18,7 @@ public class Main extends PApplet
 	static int g;
 	int launch;
 	float gravity;
+	float speed;
 	
 	public void draw()
 	{
@@ -34,6 +36,15 @@ public class Main extends PApplet
 		{
 			jump(launch);
 			landCheck();
+			if(key == 'd')
+			{
+				ball.pos.x += speed;
+			}
+			
+			if(key == 'a')
+			{
+				ball.pos.x += -speed;
+			}
 		}
 	}
 	
