@@ -31,7 +31,16 @@ public class Ball extends GameObject
 			theta = PApplet.PI/2;
 			forward.x = PApplet.sin(-theta);
 			forward.y = 0;
-			forward.mult(7);
+			forward.mult(15);
+			pos.add(forward);
+		}
+		
+		if(papplet.key =='d')
+		{
+			theta = PApplet.PI/2;
+			forward.x = PApplet.sin(theta);
+			forward.y = 0;
+			forward.mult(15);
 			pos.add(forward);
 		}
 	}
