@@ -130,6 +130,13 @@ public class Main extends PApplet
 			gameObjects.add(p);
 		}
 		
+		for(int i = 1; i < 4; i++)
+		{
+			float x = 400 + (i * 40);
+			float y = 200.0f;
+			Platform p = new Platform(this, x, y, 42, 20.0f);
+			gameObjects.add(p);
+		}
 	}
 	
 	public static void main(String[] args)
