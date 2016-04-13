@@ -1,5 +1,17 @@
 package ie.dit;
+import processing.core.*;
 
-public class GameObject {
+public abstract class GameObject
+{
+	PApplet papplet;
+	PVector pos;
+	
+	GameObject(PApplet papplet)
+	{
+		this.papplet = papplet;
+	}
+	
+	abstract void render();
+	//abstract void update();
 
 }
