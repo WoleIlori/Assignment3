@@ -5,6 +5,9 @@ public abstract class GameObject
 {
 	PApplet papplet;
 	PVector pos;
+	float w;
+	float h;
+	int c;
 	
 	GameObject(PApplet papplet)
 	{

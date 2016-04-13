@@ -3,9 +3,6 @@ import processing.core.*;
 
 public class Platform extends GameObject
 {
-	float w;
-	float h;
-	int c;
 	
 	Platform(PApplet papplet, float x, float y, float w, float h)
 	{

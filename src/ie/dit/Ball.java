@@ -5,14 +5,13 @@ public class Ball extends GameObject
 {
 	PVector forward;
 	float bRadius;
-	float ballSize;
 	float theta;
 	
 	Ball(PApplet papplet, float y)
 	{
 		super(papplet);
-		ballSize = 22.0f;
-		bRadius = ballSize * 0.5f;
+		this.w = 22.0f;
+		bRadius = this.w * 0.5f;
 		pos = new PVector(bRadius, (y -  bRadius));
 		forward = new PVector(0, 1);
 		theta = 0;
@@ -21,7 +20,7 @@ public class Ball extends GameObject
 	
 	void render()
 	{
-		papplet.ellipse(pos.x, pos.y, ballSize, ballSize);
+		papplet.ellipse(pos.x, pos.y, w, w);
 	}
 	
 	public void keyPressed()

@@ -8,7 +8,7 @@ public class Main extends PApplet
 	{
 		size(700, 500);
 		background(255);
-		ball = new Ball(this, height);
+		ball = new Ball(this, 150.0f);
 		gameObjects.add(ball);
 		startP = new Platform(this, 0, 150.0f, 60, 80);
 		gameObjects.add(startP);
@@ -96,10 +96,17 @@ public class Main extends PApplet
 	
 	public void landCheck()
 	{
-		if(ball.pos.y > height)
+		for(int i = gameObjects.size() - 1; i >= 0; i--)
 		{
-			ball.pos.y = height - ball.bRadius;
-			g = 0;
+			GameObject go = gameObjects.get(i);
+		    if (go instanceof Platform)
+		    {
+				if((ball.pos.y + ball.bRadius) > go.pos.y && (ball.pos.y + ball.bRadius) < (go.pos.y + go.h) && ball.pos.x > go.pos.x && ball.pos.x < (go.pos.x + go.w))
+				{
+					ball.pos.y = go.pos.y - ball.bRadius;
+					g = 0;
+				}	
+		    }
 		}
 	}
 	
