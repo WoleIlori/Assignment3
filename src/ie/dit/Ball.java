@@ -26,6 +26,11 @@ public class Ball extends GameObject
 	
 	public void keyPressed()
 	{
+		if(papplet.key =='w')
+		{
+			Main.g = 2;
+		}
+		
 		if(papplet.key =='a')
 		{
 			theta = PApplet.PI/2;
