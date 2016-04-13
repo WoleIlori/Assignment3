@@ -22,6 +22,11 @@ public class Main extends PApplet
 		ball.render();
 	}
 	
+	public void keyPressed()
+	{
+		ball.keyPressed();
+	}
+	
 	public static void main(String[] args)
 	{
 		String[] a = {"MAIN"};
