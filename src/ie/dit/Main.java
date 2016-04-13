@@ -1,5 +1,6 @@
 package ie.dit;
 import processing.core.*;
+import java.util.ArrayList;
 
 public class Main extends PApplet 
 {
@@ -8,6 +9,11 @@ public class Main extends PApplet
 		size(700, 500);
 		background(255);
 		ball = new Ball(this, height);
+		gameObjects.add(ball);
+		startP = new Platform(this, 0, 150.0f, 60, 80);
+		gameObjects.add(startP);
+		endP = new Platform(this, 638.0f, 150.0f, 60, 80);
+		gameObjects.add(endP);
 		g = 1;
 		launch = 15;
 		speed = 4.0f;
@@ -15,6 +21,9 @@ public class Main extends PApplet
 	
 	//create instance of ball
 	Ball ball;
+	//start and end platform
+	Platform startP, endP;
+	ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 	static int g;
 	int launch;
 	float gravity;
@@ -26,7 +35,11 @@ public class Main extends PApplet
 		stroke(0);
 		
 		fill(255);
-		ball.render();
+		for(int i = gameObjects.size() - 1; i >= 0; i--)
+		{
+			GameObject go = gameObjects.get(i);
+		    go.render();
+		}
 		
 		if(g < 2)
 		{
