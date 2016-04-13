@@ -17,6 +17,7 @@ public class Main extends PApplet
 		g = 1;
 		launch = 15;
 		speed = 4.0f;
+		drawPlatforms();
 	}
 	
 	//create instance of ball
@@ -59,6 +60,7 @@ public class Main extends PApplet
 				ball.pos.x += -speed;
 			}
 		}
+		println(gameObjects.size());
 	}
 	
 	public void keyPressed()
@@ -108,6 +110,19 @@ public class Main extends PApplet
 				}	
 		    }
 		}
+	}
+	
+	void drawPlatforms()
+	{
+		for(int i = 1; i < 4; i++)
+		{
+			float x = 90 + (i * 40);
+			float y = 200.0f;
+			Platform p = new Platform(this, x, y, 42, 20.0f);
+			gameObjects.add(p);
+		}
+		
+		
 	}
 	
 	public static void main(String[] args)
