@@ -40,6 +40,7 @@ public class Main extends PApplet
 		{
 			GameObject go = gameObjects.get(i);
 		    go.render();
+		    go.update();
 		}
 		
 		if(g < 2)
@@ -105,9 +106,13 @@ public class Main extends PApplet
 		    {
 				if((ball.pos.y + ball.bRadius) > go.pos.y && (ball.pos.y + ball.bRadius) < (go.pos.y + go.h) && ball.pos.x > go.pos.x && ball.pos.x < (go.pos.x + go.w))
 				{
-					ball.pos.y = go.pos.y - ball.bRadius;
 					g = 0;
-				}	
+					ball.pos.y = go.pos.y - ball.bRadius;
+					if(go != startP && go != endP)
+					{
+						go.platDecay= true;
+					}
+				}
 		    }
 		}
 	}

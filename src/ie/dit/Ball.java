@@ -48,4 +48,14 @@ public class Ball extends GameObject
 			pos.add(forward);
 		}
 	}
+	
+	void update()
+	{
+		if(pos.x < bRadius)
+		{
+			pos.x = bRadius;
+		}
+		
+	}
+	
 }

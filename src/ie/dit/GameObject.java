@@ -8,6 +8,7 @@ public abstract class GameObject
 	float w;
 	float h;
 	int c;
+	boolean platDecay;
 	
 	GameObject(PApplet papplet)
 	{
@@ -15,6 +16,6 @@ public abstract class GameObject
 	}
 	
 	abstract void render();
-	//abstract void update();
+	abstract void update();
 
 }
