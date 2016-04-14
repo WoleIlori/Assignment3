@@ -4,17 +4,19 @@ import processing.core.*;
 public class Ball extends GameObject
 {
 	PVector forward;
-	float bRadius;
+	float radius;
 	float theta;
+	int score;
 	
 	Ball(PApplet papplet, float y)
 	{
 		super(papplet);
 		this.w = 22.0f;
-		bRadius = this.w * 0.5f;
-		pos = new PVector(bRadius, (y -  bRadius));
+		this.radius = this.w * 0.5f;
+		pos = new PVector(this.radius, (y -  this.radius));
 		forward = new PVector(0, 1);
 		theta = 0;
+		score = 50;
 		
 	}
 	
@@ -51,9 +53,9 @@ public class Ball extends GameObject
 	
 	void update()
 	{
-		if(pos.x < bRadius)
+		if(pos.x < radius)
 		{
-			pos.x = bRadius;
+			pos.x = radius;
 		}
 		
 	}

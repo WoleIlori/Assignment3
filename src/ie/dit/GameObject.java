@@ -7,6 +7,7 @@ public abstract class GameObject
 	PVector pos;
 	float w;
 	float h;
+	float radius; //halfW
 	int c;
 	boolean platDecay;
 	

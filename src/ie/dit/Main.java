@@ -19,6 +19,9 @@ public class Main extends PApplet
 		speed = 4.0f;
 		drawPlatforms();
 		reset = false;
+		GameObject item = new Coin(this, 180, 190, 15);
+		gameObjects.add(item);
+		
 	}
 	
 	//create instance of ball
@@ -114,10 +117,10 @@ public class Main extends PApplet
 			GameObject go = gameObjects.get(i);
 		    if (go instanceof Platform)
 		    {
-				if((ball.pos.y + ball.bRadius) > go.pos.y && (ball.pos.y + ball.bRadius) < (go.pos.y + go.h) && ball.pos.x > go.pos.x && ball.pos.x < (go.pos.x + go.w))
+				if((ball.pos.y + ball.radius) > go.pos.y && (ball.pos.y + ball.radius) < (go.pos.y + go.h) && ball.pos.x > go.pos.x && ball.pos.x < (go.pos.x + go.w))
 				{
 					g = 0;
-					ball.pos.y = go.pos.y - ball.bRadius;
+					ball.pos.y = go.pos.y - ball.radius;
 					/*
 					if(go != startP && go != endP)
 					{
@@ -132,8 +135,8 @@ public class Main extends PApplet
 		{
 			//remove platforms excluding start and end
 			removePlatforms();
-			ball.pos.x = ball.bRadius;
-			ball.pos.y = startP.pos.y - ball.bRadius;
+			ball.pos.x = ball.radius;
+			ball.pos.y = startP.pos.y - ball.radius;
 			reset = true;
 		}
 	}
@@ -183,7 +186,8 @@ public class Main extends PApplet
 					gameObjects.remove(go);
 				}
 			}
-			
 		}
 	}
+	
+	
 }
