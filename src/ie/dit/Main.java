@@ -38,13 +38,13 @@ public class Main extends PApplet
 		stroke(0);
 		
 		fill(255);
-		/*
+		
 		if(reset)
 		{
-			
-			
+			drawPlatforms();
+			reset = !reset;
 		}
-		*/
+		
 		for(int i = gameObjects.size() - 1; i >= 0; i--)
 		{
 			GameObject go = gameObjects.get(i);
@@ -134,7 +134,7 @@ public class Main extends PApplet
 			removePlatforms();
 			ball.pos.x = ball.bRadius;
 			ball.pos.y = startP.pos.y - ball.bRadius;
-			//reset = true;
+			reset = true;
 		}
 	}
 	
