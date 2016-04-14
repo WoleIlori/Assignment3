@@ -4,6 +4,6 @@ import processing.core.*;
 
 public interface Collectibles 
 {
-	
+	void applyTo(Ball ball);
 }
 

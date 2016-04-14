@@ -12,7 +12,12 @@ public class Coin extends GameObject implements Collectibles
 		this.radius = w *0.5f;
 		c = papplet.color(242, 193, 12);
 	}
-		
+	
+	public void applyTo(Ball ball)
+	{
+		ball.score += 50;
+	}	
+	
 	void render()
 	{
 		papplet.fill(c);

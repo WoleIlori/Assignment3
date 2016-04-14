@@ -19,7 +19,7 @@ public class Main extends PApplet
 		speed = 4.0f;
 		drawPlatforms();
 		reset = false;
-		GameObject item = new Coin(this, 180, 190, 15);
+		GameObject item = new Coin(this, 180, 150, 15);
 		gameObjects.add(item);
 		
 	}
@@ -74,6 +74,7 @@ public class Main extends PApplet
 			}
 		}
 		println(gameObjects.size());
+		checkCollisions();
 		
 	}
 	
@@ -184,6 +185,30 @@ public class Main extends PApplet
 				if(go != startP && go != endP)
 				{
 					gameObjects.remove(go);
+				}
+			}
+		}
+	}
+	
+	void checkCollisions()
+	{
+		for(int i = gameObjects.size() - 1; i >= 0; i--)
+		{
+			GameObject go = gameObjects.get(i);
+			if(go instanceof Ball)
+			{
+				for(int j = gameObjects.size() - 1; j >= 0; j--)
+				{
+					GameObject other = gameObjects.get(j);
+					if(other instanceof Collectibles)
+					{
+						//bounding circle collisions
+						if(go.pos.dist(other.pos) < go.radius + other.radius)
+						{
+							((Collectibles)other).applyTo((Ball)go);
+							gameObjects.remove(other);
+						}
+					}
 				}
 			}
 		}
