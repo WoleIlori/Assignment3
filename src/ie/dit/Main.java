@@ -15,9 +15,10 @@ public class Main extends PApplet
 		endP = new Platform(this, 638.0f, 150.0f, 60, 80);
 		gameObjects.add(endP);
 		g = 1;
-		launch = 15;
+		launch = 13;
 		speed = 4.0f;
 		drawPlatforms();
+		reset = false;
 	}
 	
 	//create instance of ball
@@ -29,6 +30,7 @@ public class Main extends PApplet
 	int launch;
 	float gravity;
 	float speed;
+	boolean reset;
 	
 	public void draw()
 	{
@@ -36,6 +38,13 @@ public class Main extends PApplet
 		stroke(0);
 		
 		fill(255);
+		/*
+		if(reset)
+		{
+			
+			
+		}
+		*/
 		for(int i = gameObjects.size() - 1; i >= 0; i--)
 		{
 			GameObject go = gameObjects.get(i);
@@ -62,6 +71,7 @@ public class Main extends PApplet
 			}
 		}
 		println(gameObjects.size());
+		
 	}
 	
 	public void keyPressed()
@@ -108,12 +118,23 @@ public class Main extends PApplet
 				{
 					g = 0;
 					ball.pos.y = go.pos.y - ball.bRadius;
+					/*
 					if(go != startP && go != endP)
 					{
 						go.platDecay= true;
 					}
+					*/
 				}
 		    }
+		}
+		
+		if(ball.pos.y > height)
+		{
+			//remove platforms excluding start and end
+			removePlatforms();
+			ball.pos.x = ball.bRadius;
+			ball.pos.y = startP.pos.y - ball.bRadius;
+			//reset = true;
 		}
 	}
 	
@@ -148,5 +169,21 @@ public class Main extends PApplet
 	{
 		String[] a = {"MAIN"};
 	    PApplet.runSketch( a, new Main());
+	}
+	
+	void removePlatforms()
+	{
+		for(int i = gameObjects.size()- 1; i>=0; i--)
+		{
+			GameObject go = gameObjects.get(i);
+			if(go instanceof Platform)
+			{
+				if(go != startP && go != endP)
+				{
+					gameObjects.remove(go);
+				}
+			}
+			
+		}
 	}
 }

@@ -12,7 +12,7 @@ public class Platform extends GameObject
 		this.w = w;
 		this.h = h;
 		c = 255;
-		lives = 30;
+		lives = 40;
 		platDecay = false;
 	}
 	
