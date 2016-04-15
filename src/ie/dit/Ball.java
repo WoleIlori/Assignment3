@@ -16,7 +16,7 @@ public class Ball extends GameObject
 		pos = new PVector(this.radius, (y -  this.radius));
 		forward = new PVector(0, 1);
 		theta = 0;
-		score = 50;
+		score = 0;
 		
 	}
 	
@@ -64,7 +64,7 @@ public class Ball extends GameObject
 			{
 				pos.x = papplet.width - radius;
 			}
-			Main.level = 2;
+			Main.level ++;
 		}
 		
 	}

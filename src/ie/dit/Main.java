@@ -38,14 +38,14 @@ public class Main extends PApplet
 	static int level;
 	int drawn;
 	static int coinCheck = 0; //total no. of coins
+	int score = 0;
 	
 	public void draw()
 	{
 		background(255);
 		stroke(0);
-		
+		//text("Score: "+ ball.score, 300, 20);
 		fill(255);
-		
 		if(reset)
 		{
 			drawPlatforms();
@@ -108,7 +108,7 @@ public class Main extends PApplet
 				}
 			}
 		}
-		println(gameObjects.size(),coinCheck);
+		println(gameObjects.size(),coinCheck,ball.score);
 	}
 	
 	public void keyPressed()
@@ -249,6 +249,7 @@ public class Main extends PApplet
 	    PApplet.runSketch( a, new Main());
 	}
 	
+	//remove all decaying platforms and coins
 	public void remove()
 	{
 		for(int i = gameObjects.size()- 1; i>=0; i--)
@@ -289,6 +290,7 @@ public class Main extends PApplet
 						{
 							((Collectibles)other).applyTo((Ball)go);
 							gameObjects.remove(other);
+							score += 50;
 							coinCheck --;
 		
 						}
