@@ -49,7 +49,19 @@ public class Main extends PApplet
 		if(reset)
 		{
 			drawPlatforms();
+			drawn = 1;
+			coinCheck = 0;
 			drawCoins();
+			
+			//resetting the end Platform
+			for(int i = gameObjects.size() - 1; i>= 0; i--)
+			{
+				GameObject go = gameObjects.get(i);
+				if(go instanceof Platform && go == endP)
+				{
+					go.c = color(255);
+				}
+			}
 			reset = !reset;
 		}
 		
@@ -249,9 +261,13 @@ public class Main extends PApplet
 					gameObjects.remove(go);
 				}
 			}
-			if(go instanceof Coin)
+			
+			if(coinCheck > 0)
 			{
-				gameObjects.remove(go);
+				if(go instanceof Coin)
+				{
+					gameObjects.remove(go);
+				}
 			}
 		}
 	}
@@ -294,7 +310,7 @@ public class Main extends PApplet
 				gameObjects.add(coin2);
 				GameObject coin3 = new Coin(this, 520, 140, 17);
 				gameObjects.add(coin3);
-				//drawn = 0;
+				drawn = 0;
 			}
 		}
 		
