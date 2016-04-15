@@ -18,7 +18,7 @@ public class Main extends PApplet
 		launch = 13;
 		speed = 4.0f;
 		reset = false;
-		level = 2;
+		level = 1;
 		drawn = 1;
 		drawPlatforms();
 		drawCoins();
@@ -49,6 +49,7 @@ public class Main extends PApplet
 		if(reset)
 		{
 			drawPlatforms();
+			drawCoins();
 			reset = !reset;
 		}
 		
@@ -154,10 +155,11 @@ public class Main extends PApplet
 		    }
 		}
 		
+		//when ball falls of screen
 		if(ball.pos.y > height)
 		{
 			//remove platforms excluding start and end
-			removePlatforms();
+			remove();
 			ball.pos.x = ball.radius;
 			ball.pos.y = startP.pos.y - ball.radius;
 			reset = true;
@@ -235,7 +237,7 @@ public class Main extends PApplet
 	    PApplet.runSketch( a, new Main());
 	}
 	
-	public void removePlatforms()
+	public void remove()
 	{
 		for(int i = gameObjects.size()- 1; i>=0; i--)
 		{
@@ -246,6 +248,10 @@ public class Main extends PApplet
 				{
 					gameObjects.remove(go);
 				}
+			}
+			if(go instanceof Coin)
+			{
+				gameObjects.remove(go);
 			}
 		}
 	}
@@ -288,7 +294,7 @@ public class Main extends PApplet
 				gameObjects.add(coin2);
 				GameObject coin3 = new Coin(this, 520, 140, 17);
 				gameObjects.add(coin3);
-				drawn = 0;
+				//drawn = 0;
 			}
 		}
 		
