@@ -12,15 +12,15 @@ public class Main extends PApplet
 		gameObjects.add(ball);
 		startP = new Platform(this, 0, 150.0f, 60, 80);
 		gameObjects.add(startP);
-		endP = new Platform(this, 638.0f, 150.0f, 60, 80);
+		endP = new Platform(this, 640.0f, 150.0f, 60, 80);
 		gameObjects.add(endP);
 		g = 1;
 		launch = 13;
 		speed = 4.0f;
-		drawPlatforms();
 		reset = false;
 		level = 1;
 		drawn = 1;
+		drawPlatforms();
 		drawCoins();
 		
 	}
@@ -35,8 +35,9 @@ public class Main extends PApplet
 	float gravity;
 	float speed;
 	boolean reset;
-	int level;
+	static int level;
 	int drawn;
+	static int coinCheck = 0; //total no. of coins
 	
 	public void draw()
 	{
@@ -76,9 +77,21 @@ public class Main extends PApplet
 				ball.pos.x += -speed;
 			}
 		}
-		println(gameObjects.size());
 		checkCollisions();
 		
+		//checking if there are no coins left
+		if(coinCheck == 0)
+		{
+			for(int i = gameObjects.size() - 1; i>= 0; i--)
+			{
+				GameObject go = gameObjects.get(i);
+				if(go instanceof Platform && go == endP)
+				{
+					go.c = color(0,255, 0);
+				}
+			}
+		}
+		println(gameObjects.size(),coinCheck);
 	}
 	
 	public void keyPressed()
@@ -149,28 +162,31 @@ public class Main extends PApplet
 	
 	void drawPlatforms()
 	{
-		for(int i = 1; i < 4; i++)
+		if(level == 1)
 		{
-			float x = 90 + (i * 40);
-			float y = 200.0f;
-			Platform p = new Platform(this, x, y, 42, 20.0f);
-			gameObjects.add(p);
-		}
-		
-		for(int i = 1; i < 4; i++)
-		{
-			float x = 240 + (i * 40);
-			float y = 150.0f;
-			Platform p = new Platform(this, x, y, 42, 20.0f);
-			gameObjects.add(p);
-		}
-		
-		for(int i = 1; i < 4; i++)
-		{
-			float x = 400 + (i * 40);
-			float y = 200.0f;
-			Platform p = new Platform(this, x, y, 42, 20.0f);
-			gameObjects.add(p);
+			for(int i = 1; i < 4; i++)
+			{
+				float x = 90 + (i * 40);
+				float y = 200.0f;
+				Platform p = new Platform(this, x, y, 42, 20.0f);
+				gameObjects.add(p);
+			}
+			
+			for(int i = 1; i < 4; i++)
+			{
+				float x = 240 + (i * 40);
+				float y = 150.0f;
+				Platform p = new Platform(this, x, y, 42, 20.0f);
+				gameObjects.add(p);
+			}
+			
+			for(int i = 1; i < 4; i++)
+			{
+				float x = 400 + (i * 40);
+				float y = 200.0f;
+				Platform p = new Platform(this, x, y, 42, 20.0f);
+				gameObjects.add(p);
+			}
 		}
 	}
 	
@@ -180,7 +196,7 @@ public class Main extends PApplet
 	    PApplet.runSketch( a, new Main());
 	}
 	
-	void removePlatforms()
+	public void removePlatforms()
 	{
 		for(int i = gameObjects.size()- 1; i>=0; i--)
 		{
@@ -212,7 +228,8 @@ public class Main extends PApplet
 						{
 							((Collectibles)other).applyTo((Ball)go);
 							gameObjects.remove(other);
-							level = 0;
+							coinCheck --;
+		
 						}
 					}
 				}
@@ -233,6 +250,16 @@ public class Main extends PApplet
 				GameObject coin3 = new Coin(this, 520, 140, 17);
 				gameObjects.add(coin3);
 				drawn = 0;
+			}
+		}
+		
+		//count no.of coins created
+		for(int i = gameObjects.size() - 1; i>= 0; i--)
+		{
+			GameObject go = gameObjects.get(i);
+			if(go instanceof Coin)
+			{
+				coinCheck ++;
 			}
 		}
 	}

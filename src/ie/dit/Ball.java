@@ -58,6 +58,15 @@ public class Ball extends GameObject
 			pos.x = radius;
 		}
 		
+		if(pos.x > papplet.width)
+		{
+			if(Main.coinCheck > 0)
+			{
+				pos.x = papplet.width - radius;
+			}
+			Main.level = 0;
+		}
+		
 	}
 	
 }
