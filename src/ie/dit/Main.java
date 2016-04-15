@@ -188,6 +188,41 @@ public class Main extends PApplet
 				gameObjects.add(p);
 			}
 		}
+		
+		if(level == 2)
+		{
+			for(int i = 1; i < 5; i++)
+			{
+				float x = 90 + (i * 40);
+				float y = 250.0f;
+				Platform p = new Platform(this, x, y, 42, 20.0f);
+				gameObjects.add(p);
+			}
+			
+			for(int i = 1; i < 4; i++)
+			{
+				float x = 310 + (i * 40);
+				float y = 200.0f;
+				Platform p = new Platform(this, x, y, 42, 20.0f);
+				gameObjects.add(p);
+			}
+			
+			for(int i = 1; i < 5; i++)
+			{
+				float x = 150 + (i * 40);
+				float y = 120.0f;
+				Platform p = new Platform(this, x, y, 42, 20.0f);
+				gameObjects.add(p);
+			}
+			
+			for(int i = 1; i < 4; i++)
+			{
+				float x = 475 + (i * 40);
+				float y = 150.0f;
+				Platform p = new Platform(this, x, y, 42, 20.0f);
+				gameObjects.add(p);
+			}
+		}
 	}
 	
 	public static void main(String[] args)

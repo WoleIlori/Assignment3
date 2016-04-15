@@ -64,7 +64,7 @@ public class Ball extends GameObject
 			{
 				pos.x = papplet.width - radius;
 			}
-			Main.level = 0;
+			Main.level = 2;
 		}
 		
 	}
