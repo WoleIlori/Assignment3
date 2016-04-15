@@ -46,8 +46,10 @@ public class Main extends PApplet
 		stroke(0);
 		//text("Score: "+ ball.score, 300, 20);
 		fill(255);
+		
 		if(reset)
 		{
+			ball.score = 0;
 			drawPlatforms();
 			drawn = 1;
 			coinCheck = 0;
@@ -167,13 +169,27 @@ public class Main extends PApplet
 		    }
 		}
 		
-		//when ball falls of screen
+		//ball rests when it falls of screen
 		if(ball.pos.y > height)
 		{
 			//remove platforms excluding start and end
 			remove();
 			ball.pos.x = ball.radius;
 			ball.pos.y = startP.pos.y - ball.radius;
+			reset = true;
+		}
+		
+		//ball goes to the next level when all coins are collected
+		if(ball.pos.x > width)
+		{
+			if(coinCheck > 0)
+			{
+				ball.pos.x = width - ball.radius;
+			}
+			
+			ball.pos.x = ball.radius;
+			remove();
+			level ++;
 			reset = true;
 		}
 	}
