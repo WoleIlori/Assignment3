@@ -18,7 +18,7 @@ public class Main extends PApplet
 		launch = 13;
 		speed = 4.0f;
 		reset = false;
-		level = 1;
+		level = 2;
 		drawn = 1;
 		drawPlatforms();
 		drawCoins();
@@ -61,12 +61,16 @@ public class Main extends PApplet
 		
 		if(g < 2)
 		{
+			//gForce initializes the state of the ball 
+			//whether its on a platform or its falling or its in a jumping state
 			gForce();
 		}
 		else
 		{
 			jump(launch);
 			landCheck();
+			
+			//allows the ball to move while jumping
 			if(key == 'd')
 			{
 				ball.pos.x += speed;
@@ -217,7 +221,7 @@ public class Main extends PApplet
 			
 			for(int i = 1; i < 4; i++)
 			{
-				float x = 475 + (i * 40);
+				float x = 478 + (i * 40);
 				float y = 150.0f;
 				Platform p = new Platform(this, x, y, 42, 20.0f);
 				gameObjects.add(p);
@@ -286,6 +290,12 @@ public class Main extends PApplet
 				gameObjects.add(coin3);
 				drawn = 0;
 			}
+		}
+		
+		if(level == 2)
+		{
+			GameObject coin1 = new Coin(this, 170, 200, 17);
+			gameObjects.add(coin1);
 		}
 		
 		//count no.of coins created
