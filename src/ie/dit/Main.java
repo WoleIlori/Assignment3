@@ -51,6 +51,8 @@ public class Main extends PApplet
 				gameObjects.add(coin1);
 				GameObject coin2 = new Coin(this, 320, 100, 17);
 				gameObjects.add(coin2);
+				GameObject coin3 = new Coin(this, 520, 140, 17);
+				gameObjects.add(coin3);
 				drawn = 0;
 			}
 		}
