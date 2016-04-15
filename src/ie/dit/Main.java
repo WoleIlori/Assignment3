@@ -296,6 +296,8 @@ public class Main extends PApplet
 		{
 			GameObject coin1 = new Coin(this, 170, 200, 17);
 			gameObjects.add(coin1);
+			GameObject coin2 = new Coin(this, 270, 70, 17);
+			gameObjects.add(coin2);
 		}
 		
 		//count no.of coins created
