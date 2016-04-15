@@ -21,6 +21,7 @@ public class Main extends PApplet
 		reset = false;
 		level = 1;
 		drawn = 1;
+		drawCoins();
 		
 	}
 	
@@ -43,19 +44,6 @@ public class Main extends PApplet
 		stroke(0);
 		
 		fill(255);
-		if(level == 1)
-		{
-			if(drawn == 1)
-			{
-				GameObject coin1 = new Coin(this, 180, 140, 17);
-				gameObjects.add(coin1);
-				GameObject coin2 = new Coin(this, 320, 100, 17);
-				gameObjects.add(coin2);
-				GameObject coin3 = new Coin(this, 520, 140, 17);
-				gameObjects.add(coin3);
-				drawn = 0;
-			}
-		}
 		
 		if(reset)
 		{
@@ -232,5 +220,20 @@ public class Main extends PApplet
 		}
 	}
 	
-	
+	public void drawCoins()
+	{
+		if(level == 1)
+		{
+			if(drawn == 1)
+			{
+				GameObject coin1 = new Coin(this, 180, 140, 17);
+				gameObjects.add(coin1);
+				GameObject coin2 = new Coin(this, 320, 100, 17);
+				gameObjects.add(coin2);
+				GameObject coin3 = new Coin(this, 520, 140, 17);
+				gameObjects.add(coin3);
+				drawn = 0;
+			}
+		}
+	}
 }
