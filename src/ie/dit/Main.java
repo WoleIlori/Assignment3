@@ -50,6 +50,7 @@ public class Main extends PApplet
 		if(reset)
 		{
 			ball.score = 0;
+			level = 1;
 			drawPlatforms();
 			drawn = 1;
 			coinCheck = 0;
@@ -180,7 +181,7 @@ public class Main extends PApplet
 		}
 		
 		//ball goes to the next level when all coins are collected
-		if(ball.pos.x > width)
+		if((ball.pos.x + ball.radius) > width)
 		{
 			if(coinCheck > 0)
 			{
@@ -189,9 +190,10 @@ public class Main extends PApplet
 			
 			ball.pos.x = ball.radius;
 			remove();
-			level ++;
-			reset = true;
+			levelTransition();
 		}
+		
+		//if ball 
 	}
 	
 	void drawPlatforms()
@@ -347,6 +349,25 @@ public class Main extends PApplet
 			if(go instanceof Coin)
 			{
 				coinCheck ++;
+			}
+		}
+	}
+	
+	void levelTransition()
+	{
+		level++;
+		drawPlatforms();
+		drawn = 1;
+		coinCheck = 0;
+		drawCoins();
+		
+		//resetting the end Platform
+		for(int i = gameObjects.size() - 1; i>= 0; i--)
+		{
+			GameObject go = gameObjects.get(i);
+			if(go instanceof Platform && go == endP)
+			{
+				go.c = color(255);
 			}
 		}
 	}
