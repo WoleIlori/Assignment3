@@ -19,8 +19,8 @@ public class Main extends PApplet
 		speed = 4.0f;
 		drawPlatforms();
 		reset = false;
-		GameObject item = new Coin(this, 180, 150, 15);
-		gameObjects.add(item);
+		level = 1;
+		drawn = 1;
 		
 	}
 	
@@ -34,6 +34,8 @@ public class Main extends PApplet
 	float gravity;
 	float speed;
 	boolean reset;
+	int level;
+	int drawn;
 	
 	public void draw()
 	{
@@ -41,6 +43,17 @@ public class Main extends PApplet
 		stroke(0);
 		
 		fill(255);
+		if(level == 1)
+		{
+			if(drawn == 1)
+			{
+				GameObject coin1 = new Coin(this, 180, 140, 17);
+				gameObjects.add(coin1);
+				GameObject coin2 = new Coin(this, 320, 100, 17);
+				gameObjects.add(coin2);
+				drawn = 0;
+			}
+		}
 		
 		if(reset)
 		{
@@ -122,12 +135,14 @@ public class Main extends PApplet
 				{
 					g = 0;
 					ball.pos.y = go.pos.y - ball.radius;
+					
 					/*
 					if(go != startP && go != endP)
 					{
 						go.platDecay= true;
 					}
 					*/
+					
 				}
 		    }
 		}
@@ -207,6 +222,7 @@ public class Main extends PApplet
 						{
 							((Collectibles)other).applyTo((Ball)go);
 							gameObjects.remove(other);
+							level = 0;
 						}
 					}
 				}
