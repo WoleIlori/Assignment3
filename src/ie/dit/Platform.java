@@ -11,8 +11,8 @@ public class Platform extends GameObject
 		pos = new PVector(x, y);
 		this.w = w;
 		this.h = h;
-		c = 255;
-		lives = 40;
+		c = papplet.color(139, 58, 7);
+		lives = 70;
 		platDecay = false;
 	}
 	
@@ -26,22 +26,22 @@ public class Platform extends GameObject
 	{
 		if(platDecay)
 		{
-			if(lives > 0)
-			{
-				lives --;
-			}
-			if(lives < 20)
-			{
-				c = papplet.color(255, 124, 0);
-			}
-			if(lives < 10)
-			{
-				c = papplet.color(255, 0, 0);
-			}
-			if(lives == 0)
-			{
-				pos.y += 9.8;
-			}
+				if(lives > 0)
+				{
+					lives --;
+				}
+				if(lives < 70)
+				{
+					c = papplet.color(255, 124, 0);
+				}
+				if(lives < 35 )
+				{
+					c = papplet.color(255, 0, 0);
+				}
+				if(lives == 0)
+				{
+					pos.y += 9.8;
+				}
 		}
 	}
 }

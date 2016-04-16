@@ -15,6 +15,7 @@ public class Ball extends GameObject
 		this.radius = this.w * 0.5f;
 		pos = new PVector(this.radius, (y -  this.radius));
 		forward = new PVector(0, 1);
+		c = 255;
 		theta = 0;
 		score = 0;
 		
@@ -22,32 +23,43 @@ public class Ball extends GameObject
 	
 	void render()
 	{
+		papplet.fill(c);
 		papplet.ellipse(pos.x, pos.y, w, w);
 	}
 	
 	public void keyPressed()
 	{
-		if(papplet.key =='w')
+		switch(papplet.key)
 		{
-			Main.g = 2;
-		}
+			case 'w':
+			case 'i':
+			{
+				Main.g = 2;
+				break;
+			}
+			
+			case 'a':
+			case 'j':
+			{
+				theta = PApplet.PI/2;
+				forward.x = PApplet.sin(-theta);
+				forward.y = 0;
+				forward.mult(15);
+				pos.add(forward);
+				break;
+			}
+			
+			case 'd':
+			case 'l':
+			{
+				theta = PApplet.PI/2;
+				forward.x = PApplet.sin(theta);
+				forward.y = 0;
+				forward.mult(15);
+				pos.add(forward);
+				break;
+			} 
 		
-		if(papplet.key =='a')
-		{
-			theta = PApplet.PI/2;
-			forward.x = PApplet.sin(-theta);
-			forward.y = 0;
-			forward.mult(15);
-			pos.add(forward);
-		}
-		
-		if(papplet.key =='d')
-		{
-			theta = PApplet.PI/2;
-			forward.x = PApplet.sin(theta);
-			forward.y = 0;
-			forward.mult(15);
-			pos.add(forward);
 		}
 	}
 	
