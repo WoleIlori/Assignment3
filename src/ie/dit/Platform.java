@@ -12,7 +12,7 @@ public class Platform extends GameObject
 		this.w = w;
 		this.h = h;
 		c = papplet.color(139, 58, 7);
-		lives = 70;
+		lives = 100;
 		platDecay = false;
 	}
 	
@@ -30,11 +30,11 @@ public class Platform extends GameObject
 				{
 					lives --;
 				}
-				if(lives < 70)
+				if(lives < 100)
 				{
 					c = papplet.color(255, 124, 0);
 				}
-				if(lives < 35 )
+				if(lives < 50 )
 				{
 					c = papplet.color(255, 0, 0);
 				}
