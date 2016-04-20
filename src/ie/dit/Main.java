@@ -175,8 +175,6 @@ public class Main extends PApplet
 	
 	public void landCheck()
 	{
-		
-		
 		//checking if ball is on platform
 		for(int i = gameObjects.size() - 1; i >= 0; i--)
 		{
@@ -188,12 +186,11 @@ public class Main extends PApplet
 					g = 0;
 					ball.pos.y = go.pos.y - ball.radius;
 					
-		
-						//platforms excluding start and end start to decay
-						if(go != startP && go != endP)
-						{
-							go.platDecay= true;
-						}
+					//platforms excluding start and end start to decay
+					if(go != startP && go != endP)
+					{
+						go.platDecay= true;
+					}
 				}
 		    }
 		    
@@ -396,6 +393,16 @@ public class Main extends PApplet
 			GameObject coin2 = new Coin(this, 270, 70, 17);
 			gameObjects.add(coin2);
 			GameObject coin3 = new Coin(this, 450, 180, 17);
+			gameObjects.add(coin3);
+		}
+		
+		if(level == 3)
+		{
+			GameObject coin1 = new Coin(this, 150, 165, 17);
+			gameObjects.add(coin1);
+			GameObject coin2 = new Coin(this, 440, 300, 17);
+			gameObjects.add(coin2);
+			GameObject coin3 = new Coin(this, 480, 135, 17);
 			gameObjects.add(coin3);
 		}
 		
