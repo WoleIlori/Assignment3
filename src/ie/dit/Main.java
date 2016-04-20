@@ -9,42 +9,34 @@ public class Main extends PApplet
 		size(700, 500);
 		background(255);
 		ball = new Ball(this, 150.0f, ' ', 'A', 'D');
-		gameObjects.add(ball);
 		startP = new Platform(this, 0, 150.0f, 60, 80);
-		gameObjects.add(startP);
 		endP = new Platform(this, 645.0f, 150.0f, 60, 80);
-		gameObjects.add(endP);
 		g = 1;
 		launch = 13;
-		speed = 4.0f;
-		reset = false;
+		reset = true;
 		mainLvl = 1;
-		level = 1;
+		level = 3;
 		drawn = 1;
-		drawPlatforms();
-		drawCoins();
+		coinCheck = 0;
 		
 	}
 	
+	
 	//create instance of ball
 	Ball ball;
-	//start and end platform
-	static Platform startP, endP;
-	static ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
+	static Platform startP, endP; //start and end platform
+    ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 	static int g;
 	int launch;
 	float gravity;
-	float speed;
-	boolean reset;//redraw platform and coins
+	boolean reset;
 	static int level;
 	int drawn; //limit no. of coins drawn
 	int coinCheck = 0; //total no. of coins
 	int mode;
-	float posDiff;
-	float left;
-	float right;
 	static boolean[] keys = new boolean[512];
 	int mainLvl;
+	
 	//for level 2 other platforms touching each other will also decay
 	//add powerup to slow down decay
 	public void draw()
@@ -56,20 +48,21 @@ public class Main extends PApplet
 				background(0);
 				text("1. Play Game", 100, 50);
 			    text("2. Instructions", 100, 100);
+			    ball.score = 0;
+			    coinCheck = 0;
 				break;
 			}
 			
 			case 1:
 			{
-				
 				if(reset)
 				{
-					ball.score = 0;
+					gameObjects.add(ball);
+					gameObjects.add(startP);
+					gameObjects.add(endP);
 					drawPlatforms();
 					drawn = 1;
-					coinCheck = 0;
 					drawCoins();
-					
 					//resetting the end Platform
 					for(int i = gameObjects.size() - 1; i>= 0; i--)
 					{
@@ -79,14 +72,13 @@ public class Main extends PApplet
 							go.c = color(139, 58, 7);
 						}
 					}
-					reset = !reset;
+					reset = false;
 				}
 				
 				background(255);
 				fill(0);
 				text("Score: "+ ball.score, 300, 30);
 				fill(255);
-				
 				for(int i = gameObjects.size() - 1; i >= 0; i--)
 				{
 					GameObject go = gameObjects.get(i);
@@ -122,9 +114,7 @@ public class Main extends PApplet
 						}
 					}
 				}
-				println(ball.pos.x,ball.pos.y);
-				//println((ball.pos.x +ball.radius),(endP.pos.x + endP.w));
-				//println(posDiff);
+				println(gameObjects.size(),coinCheck);
 				break;
 			}
 			
@@ -146,7 +136,7 @@ public class Main extends PApplet
 		 {
 		    mode = key - '0';
 		 }
-		// ball.keyPressed();
+
 		 
 	}
 	
@@ -198,66 +188,36 @@ public class Main extends PApplet
 					g = 0;
 					ball.pos.y = go.pos.y - ball.radius;
 					
-					//platforms excluding start and end start to decay
-					if(go != startP && go != endP)
-					{
-						go.platDecay= true;
-					}
-				}
-		    }
-		}
 		
-		
-		/*
-		for(int i = gameObjects.size() - 1; i>= 0; i--)
-		{
-			GameObject go = gameObjects.get(i);
-			if(go instanceof Platform)
-			{
-				if((ball.pos.y + ball.radius) > go.pos.y && (ball.pos.y + ball.radius) < (go.pos.y + go.h) && ball.pos.x > go.pos.x && ball.pos.x < (go.pos.x + go.w))
-				{
-						g = 0;
-						ball.pos.y = go.pos.y - ball.radius;
-						for(int j = gameObjects.size() - 1; j>=0; j--)
+						//platforms excluding start and end start to decay
+						if(go != startP && go != endP)
 						{
-							GameObject platform = gameObjects.get(j);
-							if(platform instanceof Platform && platform != go && platform != startP && platform != endP)
-							{
-								posDiff = platform.pos.x - go.pos.x;
-								if(posDiff == 40)
-								{
-									platform.platDecay = true;
-								}
-								//println(go.pos.x, platform.pos.x);
-							}
-								
+							go.platDecay= true;
 						}
 				}
-			}
-		
-		
+		    }
+		    
 		}
-		*/
 		
 		//ball resets when it falls off screen
-		
-		if(ball.pos.y > height)
-		{
-			//remove platforms excluding start and end
-			remove(); 
-			ball.pos.x = ball.radius;
-			ball.pos.y = startP.pos.y - ball.radius;
-			reset = true;
-		   
-		}
-		
+			if(ball.pos.y > height)
+			{
+				
+					//remove platforms excluding start and end
+					remove(); 
+					reset = true;
+				    mode = 0;
+				    ball.pos.x = ball.radius;
+				    ball.pos.y = startP.pos.y - ball.radius;
+				
+			}
 		
 		//ball goes to the next level when all coins are collected
 		if((ball.pos.x + ball.radius) > width && (ball.pos.y + ball.radius) <= endP.pos.y)
 		{
 			if(coinCheck > 0)
 			{
-				ball.pos.x = width;
+				ball.pos.x = width - ball.radius;
 			}
 			else
 			{
@@ -325,11 +285,48 @@ public class Main extends PApplet
 			
 			for(int i = 1; i < 4; i++)
 			{
-				float x = 490 + (i * 40);
+				float x = 483 + (i * 40);
 				float y = 150.0f;
 				Platform p = new Platform(this, x, y, 42, 20.0f);
 				gameObjects.add(p);
 			}
+		}
+		
+		if(level == 3)
+		{
+			 for(int i = 1; i < 4; i++)
+			 {
+				 float x = 60 + (i * 40);
+				 float y = 180;
+				 Platform p = new Platform(this, x, y, 42, 20.0f);
+				 gameObjects.add(p);
+			 }
+			 
+			 for(int i = 1; i < 4; i++)
+			 {
+
+				 float x = 205 + (i * 40);
+				 float y = 260;
+				 Platform p = new Platform(this, x, y, 42, 20.0f);
+				 gameObjects.add(p);
+			 }
+			 
+			 for(int i = 1; i < 4; i++)
+			 {
+				 float x = 350 + (i * 40);
+				 float y = 320;
+				 Platform p = new Platform(this, x, y, 42, 20.0f);
+				 gameObjects.add(p);
+			 }
+			 
+			 for(int i = 1; i < 5; i++)
+			 {
+				 float x = 350 + (i * 40);
+				 float y = 160;
+				 Platform p = new Platform(this, x, y, 42, 20.0f);
+				 gameObjects.add(p);
+			 }
+			 
 		}
 	}
 	
@@ -342,29 +339,10 @@ public class Main extends PApplet
 	//remove all decaying platforms and coins
 	public void remove()
 	{
-		for(int i = gameObjects.size()- 1; i>=0; i--)
-		{
-			GameObject go = gameObjects.get(i);
-			//gameObjects.remove(go);
-			
-			
-			if(go instanceof Platform)
+			for(int i = gameObjects.size()- 1; i>=0; i--)
 			{
-				if(go != startP && go != endP)
-				{
-					gameObjects.remove(go);
-				}
-			}
-			
-			if(coinCheck > 0)
-			{
-				if(go instanceof Coin)
-				{
-					gameObjects.remove(go);
-				}
-			}
-			
-			
+				GameObject go = gameObjects.get(i);
+				gameObjects.remove(go);
 		}
 
 	}
@@ -417,6 +395,8 @@ public class Main extends PApplet
 			gameObjects.add(coin1);
 			GameObject coin2 = new Coin(this, 270, 70, 17);
 			gameObjects.add(coin2);
+			GameObject coin3 = new Coin(this, 450, 180, 17);
+			gameObjects.add(coin3);
 		}
 		
 		//counting no.of coins created
@@ -433,9 +413,12 @@ public class Main extends PApplet
 	void levelTransition()
 	{
 		level++;
+		coinCheck = 0;
+		gameObjects.add(ball);
+		gameObjects.add(startP);
+		gameObjects.add(endP);		
 		drawPlatforms();
 		drawn = 1;
-		coinCheck = 0;
 		drawCoins();
 		
 		//resetting the end Platform
