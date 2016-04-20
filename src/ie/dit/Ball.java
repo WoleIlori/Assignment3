@@ -37,16 +37,19 @@ public class Ball extends GameObject
 	
 	void update()
 	{
+		//check collision with left edge of screen
 		if(pos.x < radius)
 		{
 			pos.x = radius;
 		}
 		
+		//if "jump" key is pressed allow ball to jump
 		if(Main.keys[jump])
 		{
 			Main.g = 2;
 		}
 		
+		//move left
 		if(Main.keys[left])
 		{
 			theta = PApplet.PI/2;
@@ -56,6 +59,7 @@ public class Ball extends GameObject
 			pos.add(forward);
 		}
 		
+		//move right
 		if(Main.keys[right])
 		{
 			theta = PApplet.PI/2;

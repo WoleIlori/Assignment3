@@ -14,10 +14,11 @@ public class Main extends PApplet
 		g = 1;
 		launch = 13;
 		reset = true;
-		mainLvl = 1;
-		level = 3;
+		checkPoint = 1;
+		level = 1;
 		drawn = 1;
 		coinCheck = 0;
+		font = loadFont("AgencyFB-Reg-48.vlw");
 		
 	}
 	
@@ -35,10 +36,9 @@ public class Main extends PApplet
 	int coinCheck = 0; //total no. of coins
 	int mode;
 	static boolean[] keys = new boolean[512];
-	int mainLvl;
+	int checkPoint;
+	PFont font;
 	
-	//for level 2 other platforms touching each other will also decay
-	//add powerup to slow down decay
 	public void draw()
 	{
 		switch(mode)
@@ -46,8 +46,9 @@ public class Main extends PApplet
 			case 0:
 			{
 				background(0);
-				text("1. Play Game", 100, 50);
-			    text("2. Instructions", 100, 100);
+				textFont(font, 32);
+				text("1. Play Game", 100, 100);
+			    text("2. Instructions", 100, 200);
 			    ball.score = 0;
 			    coinCheck = 0;
 				break;
@@ -57,12 +58,14 @@ public class Main extends PApplet
 			{
 				if(reset)
 				{
+					background(255);
 					gameObjects.add(ball);
 					gameObjects.add(startP);
 					gameObjects.add(endP);
 					drawPlatforms();
 					drawn = 1;
 					drawCoins();
+					
 					//resetting the end Platform
 					for(int i = gameObjects.size() - 1; i>= 0; i--)
 					{
@@ -100,9 +103,9 @@ public class Main extends PApplet
 
 				}
 				
-				checkCollisions();
+				coinCollisions();
 				
-				//checking if there are no coins left
+				//if there are no coins left change the color of endPlatform
 				if(coinCheck == 0)
 				{
 					for(int i = gameObjects.size() - 1; i>= 0; i--)
@@ -121,8 +124,8 @@ public class Main extends PApplet
 			 case 2:
 		      {
 		        background(0);
-		        //textFont(font, 28);
-		        text("The objective is to collect all the coins.\nEasy right I forgot to mention that the platforms collapses.\nGood luck!", 100, 200);
+		        textFont(font, 28);
+		        text(" Press 'Space' bar to jump 'A' and 'D'\n to move left and right respectively .\nThe objective is to collect all the coins.\nEasy right I forgot to mention that the platforms collapses.\nGood luck!", 100, 200);
 		        break;
 		      }
 		}
@@ -147,8 +150,10 @@ public class Main extends PApplet
 	
 	public void gForce()
 	{
+	
 		g = 1;
 		
+		//if the ball is not on a platform ball drops 
 		if(g == 1)
 		{
 			ball.pos.y += launch;
@@ -156,6 +161,7 @@ public class Main extends PApplet
 		
 		landCheck();
 		
+		//if the ball is on a platform gravity is 0
 		if(g == 0)
 		{
 			gravity = 0;
@@ -164,7 +170,9 @@ public class Main extends PApplet
 	
 	public void jump(int launch)
 	{
+		//
 		int tVel = launch * 2;
+		
 		ball.pos.y -= launch - gravity;
 		
 		if(g < tVel)
@@ -204,12 +212,14 @@ public class Main extends PApplet
 					remove(); 
 					reset = true;
 				    mode = 0;
-				    ball.pos.x = ball.radius;
-				    ball.pos.y = startP.pos.y - ball.radius;
+				   
+				      ball.pos.x = ball.radius;
+					  ball.pos.y = startP.pos.y - ball.radius;
+				    
 				
 			}
 		
-		//ball goes to the next level when all coins are collected
+		//if the ball is on the end platform check if coins are collected to proceed to next level
 		if((ball.pos.x + ball.radius) > width && (ball.pos.y + ball.radius) <= endP.pos.y)
 		{
 			if(coinCheck > 0)
@@ -225,6 +235,7 @@ public class Main extends PApplet
 		}
 	}
 	
+	//draw collapsing platform
 	void drawPlatforms()
 	{
 		if(level == 1)
@@ -299,10 +310,10 @@ public class Main extends PApplet
 				 gameObjects.add(p);
 			 }
 			 
-			 for(int i = 1; i < 4; i++)
+			 for(int i = 1; i < 5; i++)
 			 {
 
-				 float x = 205 + (i * 40);
+				 float x = 180 + (i * 40);
 				 float y = 260;
 				 Platform p = new Platform(this, x, y, 42, 20.0f);
 				 gameObjects.add(p);
@@ -333,7 +344,7 @@ public class Main extends PApplet
 	    PApplet.runSketch( a, new Main());
 	}
 	
-	//remove all decaying platforms and coins
+	//remove all decaying 
 	public void remove()
 	{
 			for(int i = gameObjects.size()- 1; i>=0; i--)
@@ -344,7 +355,8 @@ public class Main extends PApplet
 
 	}
 	
-	void checkCollisions()
+	//check ball colliding with
+	void coinCollisions()
 	{
 		for(int i = gameObjects.size() - 1; i >= 0; i--)
 		{
@@ -420,6 +432,7 @@ public class Main extends PApplet
 	void levelTransition()
 	{
 		level++;
+		checkPoint = level;
 		coinCheck = 0;
 		gameObjects.add(ball);
 		gameObjects.add(startP);
@@ -436,6 +449,13 @@ public class Main extends PApplet
 			{
 				go.c = color(139, 58, 7);
 			}
+		}
+		
+		if(level == 4)
+		{
+			remove();
+			mode = 0;
+			level = 1;
 		}
 	}
 }
